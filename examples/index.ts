@@ -4,7 +4,7 @@ import jwtMiddleware from "../src/middleware/jwtMiddleware";
 
 const app = createApp();
 const port = process.env.PORT || 3000;
- const secret = process.env.JWT_SECRET || "secret"
+const secret = process.env.JWT_SECRET || "secret"
 
 
 // app.use(jwtMiddleware(secret))
