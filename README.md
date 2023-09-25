@@ -1,6 +1,6 @@
 # H3JWT
 
-A simple and flexible JWT middleware for H3 applications. H3 is a minimal h(ttp) framework built for high performance and portability.
+A simple and flexible JWT middleware for H3 applications. [H3](https://github.com/unjs/h3) is a minimal h(ttp) framework built for high performance and portability.
 
 ## Table of Contents]
 
