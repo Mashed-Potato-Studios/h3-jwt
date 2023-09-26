@@ -59,7 +59,7 @@ import { h3JwtMiddleware, fromHeader, fromCookie } from 'h3-jwt';
 app.use('/protected', jwtMiddleware({
   secret: 'YOUR_SECRET_KEY',
   getToken: (event) => {
-    return fromHeader(event) || fromCookie(event, 'myTokenCookie');
+    return h3Header() || h3Cookie('cookieName') || h3Query('queryName');
   }
 }));
 ```
