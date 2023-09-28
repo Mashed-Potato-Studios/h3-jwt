@@ -2,10 +2,10 @@ import {EventHandler, EventHandlerRequest, createError, defineEventHandler, getC
 import jwt, {Secret} from "jsonwebtoken";
 import { h3Header, h3Query, h3Cookie } from "../utils/tokenExtract";
 
-function h3JwtMiddleware({options}: {
+function h3Jwt({options}: {
     options: {
         secretKey: string;
-        getToken: EventHandler<EventHandlerRequest, Promise<void>>
+        getToken: EventHandler<EventHandlerRequest, Promise<string | null>>
     }
 }) {
     const getToken = options.getToken || h3Header();
@@ -28,4 +28,4 @@ function h3JwtMiddleware({options}: {
     })
 }
 
-export default h3JwtMiddleware;
+export default h3Jwt;

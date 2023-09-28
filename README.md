@@ -33,14 +33,14 @@ npm install h3-jwt --save
 ```typescript
 import {createApp, eventHandler, toNodeListener,} from "h3";
 import {createServer} from "node:http";
-import h3JwtMiddleware from "../src/middleware/jwtMiddleware";
+import h3Jwt from "../src/middleware/jwtMiddleware";
 
 const app = createApp();
 const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || "secret"
 
 app.use('/protected', eventHandler(() => {
-    app.use(h3JwtMiddleware({
+    app.use(h3Jwt({
          getToken: h3Cookie("token"),
         secretKey: "SECRET"
     }))
@@ -54,9 +54,9 @@ app.get('/protected', (req, res) => {
 ### Custom Token Extraction
 
 ```typescript
-import { h3JwtMiddleware, fromHeader, fromCookie } from 'h3-jwt';
+import { h3Jwt, fromHeader, fromCookie } from 'h3-jwt';
 
-app.use('/protected', jwtMiddleware({
+app.use('/protected', h3Jwt({
   secret: 'YOUR_SECRET_KEY',
   getToken: (event) => {
     return h3Header() || h3Cookie('cookieName') || h3Query('queryName');
