@@ -1,6 +1,6 @@
 {
   "name": "h3-jwt",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A simple and flexible JWT middleware for H3 applications. H3 is a minimal h(ttp) framework built for high performance and portability.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
