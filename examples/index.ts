@@ -9,8 +9,10 @@ const secret = process.env.JWT_SECRET || "SECRET"
 
 
 app.use(jwtMiddleware({
-    secretKey: secret,
-    getToken: h3Header()
+    options: {
+        secretKey: secret,
+        getToken: h3Header()
+    }
 }))
 app.use('/protected', eventHandler((event) => {
       return {
