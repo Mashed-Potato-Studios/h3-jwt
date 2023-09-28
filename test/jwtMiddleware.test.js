@@ -11,7 +11,7 @@ const SECRET = 'test-secret';
 
 const app = express();
 
-app.use('/protected', jwtMiddleware({ secret: SECRET }));
+app.use('/protected', jwtMiddleware({secret: SECRET}));
 app.get('/protected', (req, res) => {
   res.send(`Hello, ${req.user.name}`);
 });

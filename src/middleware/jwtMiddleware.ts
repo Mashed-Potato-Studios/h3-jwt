@@ -1,10 +1,11 @@
-import {EventHandler, EventHandlerRequest, createError, defineEventHandler, getCookie, getHeaders, sendError} from "h3";
+import {EventHandler, EventHandlerRequest, createError, defineEventHandler, getCookie, getHeaders, sendError } from "h3";
 import jwt, {Secret} from "jsonwebtoken";
 import { h3Header, h3Query, h3Cookie } from "../utils/tokenExtract";
 
 function h3JwtMiddleware(options: {
-    secretKey: Secret;
-    getToken: EventHandler<EventHandlerRequest, Promise<string | undefined>>; }) {
+    secretKey: string;
+    getToken: EventHandler<EventHandlerRequest, Promise<void | Exclude<QueryObject | undefined, undefined>>>
+}) {
     const getToken = options.getToken || h3Header();
     return defineEventHandler(async (event) => {
         try {

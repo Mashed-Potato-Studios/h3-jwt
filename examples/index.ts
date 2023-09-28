@@ -1,20 +1,23 @@
 import {createApp, eventHandler, toNodeListener,} from "h3";
 import { createServer } from "node:http";
 import jwtMiddleware from "../src/middleware/jwtMiddleware";
+import {h3Cookie, h3Header, h3Query} from "../src";
 
 const app = createApp();
 const port = process.env.PORT || 3000;
-const secret = process.env.JWT_SECRET || "secret"
+const secret = process.env.JWT_SECRET || "SECRET"
 
 
-// app.use(jwtMiddleware(secret))
+app.use(jwtMiddleware({
+    secretKey: secret,
+    getToken: h3Header()
+}))
 app.use('/protected', eventHandler((event) => {
       return {
             message: "Protected route"
         }
 }))
 app.use('/', eventHandler((event) => {
-    console.log(event.node.req)
     // console.log(event._headers)
     return {
         message: "Hello World"
