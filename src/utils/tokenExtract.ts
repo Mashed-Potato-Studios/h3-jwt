@@ -10,6 +10,12 @@ import {
 } from "h3";
 
 
+/**
+ * @name h3Header
+ * @description Extracts token from header
+ * @returns {EventHandler<H3Event, Promise<string | null>>}
+ *
+ */
 function h3Header() {
     return defineEventHandler(async (event: H3Event) => {
         if (event.node.req.headers.authorization && event.node.req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -19,6 +25,13 @@ function h3Header() {
     })
 }
 
+/**
+ * @name h3Cookie
+ * @description Extracts token from cookie
+ * @param cookieName
+ * @returns {EventHandler<H3Event, Promise<string | null>>}
+ *
+ */
 function h3Cookie(cookieName: string) {
     return defineEventHandler(async (event: H3Event) => {
         const token = getCookie(event, cookieName)
@@ -33,6 +46,15 @@ function h3Cookie(cookieName: string) {
     })
 }
 
+/**
+ * @name h3Query
+ * @description Extracts token from query
+ * @returns {EventHandler<H3Event, Promise<string | null>>}
+ * @example /api/user?token=123456
+ * @returns 123456
+ *
+ *
+ */
 function h3Query() {
     return defineEventHandler(async (event: H3Event) => {
         const query = getQuery(event)
