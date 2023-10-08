@@ -8,7 +8,7 @@ import {
     sendError,
     createError
 } from "h3";
-
+import { H3GetToken } from "../middleware/jwtMiddleware";
 
 /**
  * @name h3Header
@@ -34,7 +34,7 @@ function h3Header() {
  */
 function h3Cookie(cookieName: string) {
     return defineEventHandler(async (event: H3Event) => {
-        const token = getCookie(event, cookieName)
+        const token = getCookie(event, cookieName) as string
         // console.log("cookie", token)
         if (!token) {
             return sendError(event, createError({
@@ -42,9 +42,22 @@ function h3Cookie(cookieName: string) {
                 statusMessage: "Undefined Token!"
             }))
         }
-        return token
+        return token;
     })
 }
+
+const h3CookieToken: H3GetToken = defineEventHandler(async (event: H3Event) => {
+    const token = getCookie(event, "token") as string
+    // console.log("cookie", token)
+    if (!token) {
+        return sendError(event, createError({
+            statusCode: 401,
+            statusMessage: "Undefined Token!"
+        }))
+    }
+    return token;
+
+})
 
 /**
  * @name h3Query
@@ -72,4 +85,4 @@ function h3Query() {
 }
 
 
-export {h3Header, h3Cookie, h3Query}
+export {h3Header, h3Cookie, h3Query, h3CookieToken}

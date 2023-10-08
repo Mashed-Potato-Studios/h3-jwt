@@ -44,16 +44,37 @@ const app = createApp();
 const port = process.env.PORT || 3000;
 const secret = process.env.JWT_SECRET || "secret"
 
-app.use('/protected', eventHandler(() => {
-    app.use(h3Jwt({
-         getToken: h3Cookie("token"),
-        secretKey: "SECRET"
-    }))
-}));
+app.use("/", eventHandler((event) => {
 
-app.get('/protected', (req, res) => {
-    res.send(`Hello, ${req.user.name}`);
-});
+app.use('/hello', eventHandler((event) => {
+        // console.log(event._headers)
+        return {
+            message: "Hello World"
+        }
+    }))
+
+
+ app.use('/login', eventHandler((event) => {
+        // console.log(event._headers)
+        return {
+            message: "Login"
+        }
+    }))
+
+    app.use(h3Jwt({
+        secretKey: secret,
+        getToken: h3Cookie("token"),
+        algorithms: ["HS256"]
+}))
+
+    app.use('/protected', eventHandler((event) => {
+
+        return {
+                message: "Protected route"
+            }
+}))
+
+}))
 ```
 
 ### Custom Token Extraction
